@@ -33,6 +33,12 @@ int main() {
 		return 1;
 	}
 
+#ifdef DEBUG_MODE
+        printf("\n<JSON_STRING>\n");
+        printf("%s", JSON_STRONG);
+        printf("\n==============\n");
+#endif
+
 	/* Assume the top-level element is an object */
 	if (r < 1 || t[0].type != JSMN_OBJECT) {
 		printf("Object expected\n");
@@ -41,6 +47,14 @@ int main() {
 
 //added: print started going through the tokens
 	printf("Start going through the tokens...");
+
+
+#ifdef DEBUG_MODE
+	for(i = 0; i < r; i++){
+		printf("[%2d] (%d) %d~%d, size:%d\n",
+		i, t[i].type, t[i].start, t[i].end, t[i].size);
+	}
+#endif
 
 	/* Loop over all keys of the root object */
 	for (i = 1; i < r; i++) {
