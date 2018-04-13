@@ -39,6 +39,9 @@ int main() {
 		return 1;
 	}
 
+//added: print started going through the tokens
+	printf("Start going through the tokens...");
+
 	/* Loop over all keys of the root object */
 	for (i = 1; i < r; i++) {
 		if (jsoneq(JSON_STRING, &t[i], "user") == 0) {
