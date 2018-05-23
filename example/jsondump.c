@@ -24,7 +24,6 @@ static inline void *realloc_it(void *ptrmem, size_t size) {
  * An example of reading JSON from stdin and printing its content to stdout.
  * The output looks like YAML, but I'm not sure if it's really compatible.
  */
-
 static int dump(const char *js, jsmntok_t *t, size_t count, int indent) {
 	int i, j, k;
 	if (count == 0) {
