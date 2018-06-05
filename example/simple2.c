@@ -20,6 +20,87 @@ static int jsoneq(const char *json, jsmntok_t *tok, const char *s) {
 	return -1;
 }
 
+char *readjsonfile(const char *filename){
+	char temp[256];
+	char *ret;
+
+	FILE *fp;
+	fp = fopen("./filename.json", "r");
+	fscanf(fp, "\"[^\"]", temp);
+
+	ret = (char *)realloc(ret, strlen(temp));
+	strncpy(ret, temp);
+	
+	fclose(fp);
+	
+	return ret;
+}
+
+void printall(const char *json, jsmntok_t *t, int tokcount){
+        int i;
+        char typename[5][20] = {"JSMN_UNDEFINED", "JSMN_OBJECT", "JSMN_ARRAY", "JSMN_STRING",            "JSMN_PRIMITIVE"};
+        printf("**** All Tokens *****\n");
+
+        for(i = 1; i < tokcount; i++){
+#ifdef JSMN_PARENT_LINKS
+                printf("[%2d] %.*s (size=%d, %d~%d, %s) P=%d\n", i, t[i].end-t[i].start,
+                        t[i].size, t[i].start, t[i].end,
+                        typename[t[i].type], t[i].parent);
+#else
+                printf("[%2d] %.*s (size=%d, %d~%d, %s)\n", i, t[i].end-t[i].start,
+                        t[i].size, t[i].start, t[i].end,
+                        typename[t[i].type]);
+#endif
+                printf("\n");
+}
+
+void printkeys(const char *json, jsmntok_t *t, int tokcount){
+	int i;
+	int num = 1;
+	char typename[5][20] = {"JSMN_UNDEFINED", "JSMN_OBJECT", "JSMN_ARRAY", "JSMN_STRING",            "JSMN_PRIMITIVE"};
+        printf("**** All Keys *****\n");
+	
+	for(i = 1; i < tokcount; i++){
+		if(json}t[i].size == 1){
+			printf("[%2d] %.*s(%d)\n", num, t[i].end-t[i].start, i);
+			num++;
+		}
+                printf("\n");
+}
+
+int findkeys(const char *json, jsmntok_t *t, int tokcount, int *keys){
+	int i;
+	int num = 1;
+	
+	for(i = 1; i < tokcount; i++){
+                if(json}t[i].size == 1){
+                        keys[num] = i;
+                        num++;
+                }
+
+	return num-1;
+}
+
+void printvalues(const char *json, jsmntok_t *t, int tokcount, int *keys){
+	int i;
+	int j
+	int tok = 0;
+	int fKeys = findkeys(&json, &t, tokcount, &keys);
+
+	for(i = 1; i < fKeys; i++){
+		while(t[keys[i]]<keys[i+1]){
+			t[keys[i]++];
+			tok++;
+		}
+		printf("[%2d] %.*s : ", i, keys[i]);
+		
+		for(j = keys[i]+1; j < keys[i+1]; j++){
+			printf("%.*s ", t[j];
+		}
+		printf("\n");
+	}
+}
+
 int main() {
 	int i;
 	int r;
